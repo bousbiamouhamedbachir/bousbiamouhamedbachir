@@ -1,0 +1,490 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=JetBrains+Mono&display=swap"
+        rel="stylesheet">
+    <title>Bousbia Mouhamed Bachir | Premium Portfolio</title>
+    <!-- SEO Meta Tags -->
+    <meta name="description"
+        content="Portfolio of Bousbia Mouhamed Bachir, a High-End Full-Stack Developer specialized in Backend (FastAPI, Flask) and Modern Frontends.">
+
+    <style>
+        :root {
+            --accent: #06b6d4;
+            --accent-glow: rgba(6, 182, 212, 0.2);
+            --bg: #030303;
+            --glass: rgba(10, 10, 10, 0.4);
+            --glass-border: rgba(255, 255, 255, 0.08);
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: white;
+            min-height: 100vh;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        /* --- IMMERSIVE BACKGROUND --- */
+        .bg-mesh {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            filter: blur(100px);
+            opacity: 0.5;
+            background:
+                radial-gradient(circle at 0% 0%, #0c4a6e 0%, transparent 50%),
+                radial-gradient(circle at 100% 0%, #1e1b4b 0%, transparent 50%),
+                radial-gradient(circle at 50% 50%, #111827 0%, transparent 50%),
+                radial-gradient(circle at 0% 100%, #083344 0%, transparent 50%),
+                radial-gradient(circle at 100% 100%, #1e1b4b 0%, transparent 50%);
+            animation: meshFloat 20s infinite alternate;
+        }
+
+        @keyframes meshFloat {
+            0% {
+                transform: scale(1) rotate(0deg);
+            }
+
+            100% {
+                transform: scale(1.2) rotate(5deg);
+            }
+        }
+
+        .grain {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: -1;
+            opacity: 0.03;
+            pointer-events: none;
+            background-image: url("https://grainy-gradients.vercel.app/noise.svg");
+        }
+
+        /* --- GLASS CORE --- */
+        .glass {
+            background: var(--glass);
+            backdrop-filter: blur(24px) saturate(180%);
+            border: 1px solid var(--glass-border);
+            border-radius: 2rem;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+            transition: all 0.5s cubic-bezier(0.16, 1, 0.3, 1);
+        }
+
+        .glass:hover {
+            border-color: rgba(255, 255, 255, 0.15);
+            background: rgba(15, 15, 15, 0.5);
+            transform: translateY(-8px) scale(1.02);
+        }
+
+        /* --- CUSTOM SCROLLBAR --- */
+        ::-webkit-scrollbar {
+            width: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: var(--bg);
+        }
+        ::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: rgba(6, 182, 212, 0.5);
+        }
+
+        /* --- SHIMMER LOADER --- */
+        .shimmer {
+            position: relative;
+            overflow: hidden;
+        }
+        .shimmer::after {
+            content: '';
+            position: absolute;
+            inset: 0;
+            transform: translateX(-100%);
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.08), transparent);
+            animation: shimmerSlide 2s infinite;
+        }
+        @keyframes shimmerSlide {
+            100% { transform: translateX(100%); }
+        }
+
+        /* --- LAYOUT --- */
+        .main-container {
+            display: grid;
+            grid-template-columns: 380px 1fr;
+            gap: 2.5rem;
+            max-width: 1600px;
+            margin: 0 auto;
+            padding: 3rem 2rem;
+            min-height: 100vh;
+        }
+
+        /* --- SIDEBAR (CONTROL CENTER) --- */
+        .sidebar-wrapper {
+            position: sticky;
+            top: 3rem;
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            height: calc(100vh - 6rem);
+            overflow-y: auto;
+            scrollbar-width: none;
+            padding-bottom: 2rem;
+        }
+
+        .sidebar-wrapper::-webkit-scrollbar {
+            display: none;
+        }
+
+        .profile-card {
+            padding: 2.5rem;
+            text-align: center;
+        }
+
+        .avatar-container {
+            position: relative;
+            width: 140px;
+            height: 140px;
+            margin: 0 auto;
+        }
+
+        .avatar-glow {
+            position: absolute;
+            inset: -5px;
+            background: linear-gradient(45deg, var(--accent), #3b82f6, #8b5cf6);
+            border-radius: 50%;
+            opacity: 0.5;
+            filter: blur(8px);
+            animation: rotateGlow 5s linear infinite;
+        }
+
+        @keyframes rotateGlow {
+            from {
+                transform: rotate(0deg);
+            }
+
+            to {
+                transform: rotate(360deg);
+            }
+        }
+
+        #avatar {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 4px solid var(--bg);
+            object-fit: cover;
+        }
+
+        .status-pill {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.5rem 1rem;
+            background: rgba(34, 197, 94, 0.1);
+            border: 1px solid rgba(34, 197, 94, 0.2);
+            border-radius: 9999px;
+            font-size: 0.75rem;
+            color: #4ade80;
+            width: fit-content;
+            margin: 1rem auto 0;
+        }
+
+        /* --- STATS GRID --- */
+        .stats-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 1rem;
+        }
+
+        .stat-box {
+            padding: 1.5rem;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        .stat-value {
+            font-size: 1.5rem;
+            font-weight: 800;
+            background: linear-gradient(to bottom right, #fff, #94a3b8);
+            -webkit-background-clip: text;
+            background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+
+        /* --- REPOSITORY CARDS --- */
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(400px, 1fr));
+            gap: 2rem;
+        }
+
+        .project-card {
+            padding: 2.5rem;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-between;
+            min-height: 320px;
+            position: relative;
+        }
+
+        .project-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            border-radius: 2rem;
+            background: radial-gradient(800px circle at var(--mouse-x) var(--mouse-y), rgba(255, 255, 255, 0.06), transparent 40%);
+            z-index: 1;
+            pointer-events: none;
+            opacity: 0;
+            transition: opacity 0.5s;
+        }
+
+        .project-card:hover::before {
+            opacity: 1;
+        }
+
+        .tag {
+            font-size: 0.7rem;
+            padding: 0.3rem 0.6rem;
+            border-radius: 0.5rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.05);
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        /* --- ANIMATIONS --- */
+        .reveal {
+            opacity: 0;
+            transform: translateY(20px);
+            animation: revealUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+        }
+
+        @keyframes revealUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* --- MOBILE --- */
+        @media (max-width: 1100px) {
+            .main-container {
+                grid-template-columns: 1fr;
+            }
+
+            .sidebar-wrapper {
+                position: relative;
+                top: 0;
+                height: auto;
+            }
+        }
+
+        @media (max-width: 640px) {
+            .projects-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="bg-mesh"></div>
+    <div class="grain"></div>
+
+    <div class="main-container">
+        <!-- SIDEBAR -->
+        <aside class="sidebar-wrapper">
+            <!-- Profile -->
+            <div class="profile-card glass reveal" style="animation-delay: 0.1s;">
+                <div class="avatar-container">
+                    <div class="avatar-glow"></div>
+                    <img id="avatar" src="" alt="Profile">
+                </div>
+                <h1 id="name" class="mt-6 text-3xl font-800 tracking-tight leading-none bg-clip-text text-transparent bg-gradient-to-r from-cyan-400 to-blue-500">Loading...</h1>
+                <div class="status-pill">
+                    <span class="w-1.5 h-1.5 bg-green-500 rounded-full animate-pulse"></span>
+                    Available for Work
+                </div>
+            </div>
+
+            <!-- Bio -->
+            <div class="glass p-8 reveal" style="animation-delay: 0.2s;">
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-4">Biography</h3>
+                <p id="bio" class="text-sm text-gray-400 leading-relaxed font-medium">Software Developer & Tech
+                    Enthusiast based in Algeria.</p>
+            </div>
+
+            <!-- Stats -->
+            <div class="stats-grid">
+                <div class="stat-box glass reveal" style="animation-delay: 0.3s;">
+                    <span id="repo-count" class="stat-value">--</span>
+                    <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold">Public Repos</span>
+                </div>
+                <div class="stat-box glass reveal" style="animation-delay: 0.4s;">
+                    <span id="follower-count" class="stat-value">--</span>
+                    <span class="text-[9px] uppercase tracking-widest text-gray-500 font-bold">Followers</span>
+                </div>
+            </div>
+
+            <!-- Connect -->
+            <div class="glass p-8 reveal" style="animation-delay: 0.5s;">
+                <h3 class="text-[10px] font-bold uppercase tracking-[0.2em] text-gray-500 mb-6 font-800">Direct Channels
+                </h3>
+                <div class="flex flex-col gap-3">
+                    <a href="mailto:bousbiamouhamedbachir@gmail.com"
+                        class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-cyan-500/50 transition">
+                        <span class="text-xs font-bold font-800">Email Address</span>
+                        <svg class="w-4 h-4 text-cyan-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M20 4H4c-1.1 0-1.99.9-1.99 2L2 18c0 1.1.9 2 2 2h16c1.1 0 2-.9 2-2V6c0-1.1-.9-2-2-2zm0 4l-8 5-8-5V6l8 5 8-5v2z" />
+                        </svg>
+                    </a>
+                    <a href="https://www.instagram.com/bousbiamouhamedbachir/" target="_blank"
+                        class="flex items-center justify-between p-4 bg-white/5 rounded-2xl border border-white/5 hover:border-pink-500/50 transition">
+                        <span class="text-xs font-bold font-800">Instagram</span>
+                        <svg class="w-4 h-4 text-pink-500" fill="currentColor" viewBox="0 0 24 24">
+                            <path
+                                d="M7.8 2h8.4C19.4 2 22 4.6 22 7.8v8.4a5.8 5.8 0 0 1-5.8 5.8H7.8C4.6 22 2 19.4 2 16.2V7.8A5.8 5.8 0 0 1 7.8 2zm-.2 2A3.6 3.6 0 0 0 4 7.6v8.8A3.6 3.6 0 0 0 7.6 20h8.8a3.6 3.6 0 0 0 3.6-3.6V7.6A3.6 3.6 0 0 0 16.4 4H7.6zm9.15 3a.75.75 0 1 1 0 1.5.75.75 0 0 1 0-1.5zM12 7a5 5 0 1 1 0 10 5 5 0 0 1 0-10zm0 2a3 3 0 1 0 0 6 3 3 0 0 0 0-6z" />
+                        </svg>
+                    </a>
+                </div>
+            </div>
+        </aside>
+
+        <!-- MAIN CONTENT -->
+        <main>
+            <!-- Projects Header -->
+            <div class="flex items-end justify-between mb-10 px-4 reveal" style="animation-delay: 0.6s;">
+                <div>
+                    <h2 class="text-4xl font-800 tracking-tight mb-2 bg-clip-text text-transparent bg-gradient-to-r from-white to-gray-500">Projects</h2>
+                    <p class="text-gray-500 font-medium">Selected works and contributions.</p>
+                </div>
+                <div class="flex gap-2 mb-2">
+                    <div class="h-1.5 w-1.5 bg-cyan-500 rounded-full"></div>
+                    <div class="h-1.5 w-1.5 bg-gray-800 rounded-full"></div>
+                    <div class="h-1.5 w-1.5 bg-gray-800 rounded-full"></div>
+                </div>
+            </div>
+
+            <div id="projects-container" class="projects-grid">
+                <!-- Skeleton Loading -->
+                <div class="project-card glass reveal shimmer" style="animation-delay: 0.7s;"></div>
+                <div class="project-card glass reveal shimmer" style="animation-delay: 0.8s;"></div>
+                <div class="project-card glass reveal shimmer" style="animation-delay: 0.9s;"></div>
+                <div class="project-card glass reveal shimmer" style="animation-delay: 1.0s;"></div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Scroll to Top FAB -->
+    <button id="scrollToTopBtn" class="fixed bottom-8 right-8 p-4 rounded-full bg-gradient-to-br from-cyan-500 to-blue-600 text-white shadow-lg shadow-cyan-500/30 opacity-0 translate-y-10 transition-all duration-300 pointer-events-none z-50 hover:shadow-cyan-500/60 hover:scale-110">
+        <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M5 10l7-7m0 0l7 7m-7-7v18"></path></svg>
+    </button>
+
+    <script>
+        const USERNAME = "bousbiamouhamedbachir";
+
+        async function init() {
+            try {
+                const userRes = await fetch(`https://api.github.com/users/${USERNAME}`);
+                const user = await userRes.json();
+
+                document.getElementById("avatar").src = user.avatar_url;
+                document.getElementById("name").innerText = user.name || user.login;
+                if (user.bio) document.getElementById("bio").innerText = user.bio;
+                document.getElementById("repo-count").innerText = user.public_repos;
+                document.getElementById("follower-count").innerText = user.followers;
+
+                const repoRes = await fetch(`https://api.github.com/users/${USERNAME}/repos?sort=updated&per_page=100`);
+                const repos = await repoRes.json();
+
+                const container = document.getElementById("projects-container");
+                container.innerHTML = repos.map((repo, idx) => `
+                    <div class="project-card glass reveal group" 
+                         style="animation-delay: ${0.7 + (idx * 0.1)}s; cursor: pointer;"
+                         onclick="window.open('${repo.html_url}', '_blank')">
+                        <div class="z-10">
+                            <div class="flex justify-between items-center mb-6">
+                                <span class="tag">${repo.language || 'Code'}</span>
+                                <div class="flex gap-4">
+                                    <span class="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                        <svg class="w-3.5 h-3.5" fill="currentColor" viewBox="0 0 24 24"><path d="M12 17.27L18.18 21l-1.64-7.03L22 9.24l-7.19-.61L12 2 9.19 8.63 2 9.24l5.46 4.73L5.82 21z"/></svg>
+                                        ${repo.stargazers_count}
+                                    </span>
+                                    <span class="flex items-center gap-1.5 text-[10px] font-bold text-gray-500 uppercase tracking-widest">
+                                        <svg class="w-3.5 h-3.5" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M8 12h.01M12 12h.01M16 12h.01M21 12c0 4.418-4.03 8-9 8a9.863 9.863 0 01-4.255-.949L3 20l1.395-3.72C3.512 15.042 3 13.574 3 12c0-4.418 4.03-8 9-8s9 3.582 9 8z"></path></svg>
+                                        ${repo.forks_count}
+                                    </span>
+                                </div>
+                            </div>
+                            <h2 class="text-2xl font-bold text-white group-hover:text-cyan-400 transition-colors mb-4 leading-tight">${repo.name}</h2>
+                            <p class="text-sm text-gray-500 leading-relaxed line-clamp-3">${repo.description || "Experimental digital architecture focusing on high-performance logic and clean code patterns."}</p>
+                        </div>
+                        <div class="z-10 mt-8 flex items-center justify-between">
+                            <span class="text-[10px] font-bold text-cyan-500 uppercase tracking-[0.2em]">Explore Project</span>
+                            <span class="text-[10px] font-bold text-gray-600 uppercase tracking-widest">Updated ${new Date(repo.updated_at).toLocaleDateString()}</span>
+                        </div>
+                    </div>
+                `).join('');
+
+                // Custom mouse glow for cards
+                container.addEventListener('mousemove', (e) => {
+                    const cards = document.getElementsByClassName('project-card');
+                    for (const card of cards) {
+                        const rect = card.getBoundingClientRect();
+                        const x = e.clientX - rect.left;
+                        const y = e.clientY - rect.top;
+                        card.style.setProperty('--mouse-x', `${x}px`);
+                        card.style.setProperty('--mouse-y', `${y}px`);
+                    }
+                });
+
+                // Scroll to top logic
+                const scrollBtn = document.getElementById("scrollToTopBtn");
+                window.addEventListener("scroll", () => {
+                    if (window.scrollY > 300) {
+                        scrollBtn.classList.remove("opacity-0", "translate-y-10", "pointer-events-none");
+                    } else {
+                        scrollBtn.classList.add("opacity-0", "translate-y-10", "pointer-events-none");
+                    }
+                });
+                scrollBtn.addEventListener("click", () => {
+                    window.scrollTo({ top: 0, behavior: "smooth" });
+                });
+
+            } catch (e) {
+                console.error(e);
+            }
+        }
+
+        init();
+    </script>
+</body>
+
+</html>
